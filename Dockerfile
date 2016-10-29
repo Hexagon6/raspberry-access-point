@@ -6,6 +6,7 @@ RUN mkdir $foo
 WORKDIR $foo
 RUN mkdir -p etc/network etc/hostapd etc/default etc/wpa_supplicant
 ADD etc/dhcpcd.conf $foo/etc/
+ADD etc/dnsmasq.conf $foo/etc/
 ADD etc/network/interfaces $foo/etc/network/
 ADD etc/hostapd/hostapd.conf $foo/etc/hostapd/
 ADD etc/default/hostapd $foo/etc/default/

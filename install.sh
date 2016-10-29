@@ -30,6 +30,7 @@ function sys_copy() {
 echo "Copying config to your system" 
 ls etc
 sys_copy etc/dhcpcd.conf
+sys_copy etc/dnsmasq.conf
 sys_copy etc/network/interfaces
 sys_copy etc/hostapd/hostapd.conf
 sys_copy etc/wpa_supplicant/wpa_supplicant.conf
@@ -38,7 +39,13 @@ sys_copy etc/iptables.ipv4.nat
 echo "enable IP forwarding"
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 
-echo "changing WiFi-passphrase to '`hostname`'"
-sed -i 's/PASSPHRASE/'`hostname`'/g' /etc/hostapd/hostapd.conf
+echo "changing WiFi-passphrase to '`hostname`_ (needs to be at least 8 characters long)'"
+sed -i 's/PASSPHRASE/'`hostname`'_/g' /etc/hostapd/hostapd.conf
+
+ONFAILURE = `grep 'Restart=on-failure' | wc -l`
+if [ $ONFAILURE -eq 0 ]; then
+	echo "patching dnsmasq.service to restart on failure"
+	sed -i 's/[Install]/Restart=on-failure\nRestartSec=5\n[Install]' /etc/systemd/system/multi-user.target.wants/dnsmasq.service
+fi
 
 for s in hostapd dnsmasq dhcpcd; do service $s start; done
