@@ -32,6 +32,7 @@ ls etc
 sys_copy etc/dhcpcd.conf
 sys_copy etc/dnsmasq.conf
 sys_copy etc/network/interfaces
+sys_copy etc/default/hostapd
 sys_copy etc/hostapd/hostapd.conf
 sys_copy etc/wpa_supplicant/wpa_supplicant.conf
 sys_copy etc/iptables.ipv4.nat
