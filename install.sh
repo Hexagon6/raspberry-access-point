@@ -63,7 +63,7 @@ fi
 DNSMASQ_HACK=`grep "sleep 10 && /bin/systemctl restart dnsmasq" /etc/rc.local | wc -m`
 if [ $DNSMASQ_HACK -eq 0 ]; then
 	echo "adding dnsmasq restart-hack"
-	sed -i 's/exit 0/sleep 10 && /bin/systemctl restart dnsmasq\nexit 0/' /etc/rc.local
+	sed -i 's_exit 0_sleep 10 \&\& /bin/systemctl restart dnsmasq\nexit 0_' /etc/rc.local
 fi
 
 systemctl daemon-reload
