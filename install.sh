@@ -60,4 +60,13 @@ if [ $ONFAILURE -eq 0 ]; then
 	sed -i 's/\[Install\]/Restart=on-failure\nRestartSec=5\n[Install]/' /etc/systemd/system/multi-user.target.wants/dnsmasq.service
 fi
 
-for s in hostapd dnsmasq dhcpcd; do service $s start; done
+DNSMASQ_HACK=`grep "sleep 10 && /bin/systemctl restart dnsmasq" /etc/rc.local | wc -m`
+if [ $DNSMASQ_HACK -eq 0 ]; then
+	echo "adding dnsmasq restart-hack"
+	sed -i 's/exit 0/sleep 10 && /bin/systemctl restart dnsmasq\nexit 0/' /etc/rc.local
+fi
+
+systemctl daemon-reload
+for s in networking hostapd dnsmasq dhcpcd; do systemctl restart $s; done
+
+exit 0
