@@ -10,6 +10,15 @@ if [ "$ID" -ne 0 ]; then
 	exit 1
 fi
 
+SFPI=`echo "$HOSTNAME" | wc -m`
+if [ "$SFPI" -lt 7 ]; then
+	echo "Please use a hostname with at least 7 character e.g. [sfpi-99]"
+	echo "This script was written for the raspberry Pi workshop at the Starship Factory\n"
+	echo " and requires it for generating a default WPA passphrase with at least 8 characters,\n"
+    echo " you can change it later if you like, contact hexagon6 on github if you need support"
+	exit 1
+fi
+
 echo "[ap-installer]  updating package list.."
 apt update
 echo "[ap-installer]  installing hostapd and dnsmasq"
@@ -43,10 +52,10 @@ sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 echo "changing WiFi-passphrase to '`hostname`_ (needs to be at least 8 characters long)'"
 sed -i 's/PASSPHRASE/'`hostname`'_/g' /etc/hostapd/hostapd.conf
 
-ONFAILURE = `grep 'Restart=on-failure' | wc -l`
+ONFAILURE=`grep 'Restart=on-failure' | wc -l`
 if [ $ONFAILURE -eq 0 ]; then
 	echo "patching dnsmasq.service to restart on failure"
-	sed -i 's/[Install]/Restart=on-failure\nRestartSec=5\n[Install]' /etc/systemd/system/multi-user.target.wants/dnsmasq.service
+	sed -i 's/[Install]/Restart=on-failure\nRestartSec=5\n[Install]/' /etc/systemd/system/multi-user.target.wants/dnsmasq.service
 fi
 
 for s in hostapd dnsmasq dhcpcd; do service $s start; done

@@ -12,10 +12,16 @@ iface lo inet loopback
 iface eth0 inet manual
 
 allow-hotplug wlan0
-iface wlan0 inet static
-	address 172.24.1.1
-#iface wlan0 inet manual
+iface wlan0 inet manual
 #    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+# SFPI-workshop:
+# if you want to get rid of dnsmasq failure messages on startup
+#  comment out "iface wlan0 inet manual" up there and
+#  enable the following:
+#
+# iface wlan0 inet static
+#     address 172.24.1.1
 
 allow-hotplug wlan1
 iface wlan1 inet manual
