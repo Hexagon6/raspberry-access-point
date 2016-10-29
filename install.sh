@@ -49,6 +49,8 @@ sys_copy etc/iptables.ipv4.nat
 echo "enable IP forwarding"
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 
+echo "changing WiFi ESSID to "`hostname`
+sed -i 's/^ssid=pi$/ssid='`hostname`'/g' /etc/hostapd/hostapd.conf
 echo "changing WiFi-passphrase to '`hostname`_ (needs to be at least 8 characters long)'"
 sed -i 's/PASSPHRASE/'`hostname`'_/g' /etc/hostapd/hostapd.conf
 

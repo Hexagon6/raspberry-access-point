@@ -36,3 +36,15 @@ Troubleshooting und Tipps:
     Um SSH abzusichern und Root Login nicht zu ermöglichen folgendes in der `/etc/ssh/sshd_config` setzen:
       Set PermitRootLogin to "no".
 	DSA ist unsicher und ECDSA hat nicht vertrauenswürdige crypto, daher empfielt es sich ECDSA- und DSA-host keys und Referenzen in der config zu entfernen
+
+Phase 0
+----
+Einloggen `pi`, pw: `raspberry`
+```
+sudo apt update
+sudo apt install git-core
+git clone https://github.com/hexagon6/raspberry-access-point
+cd raspberry-access-point
+sudo ./install
+```
+Und 
