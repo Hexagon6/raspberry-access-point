@@ -54,7 +54,7 @@ sed -i 's/^ssid=pi$/ssid='`hostname`'/g' /etc/hostapd/hostapd.conf
 echo "changing WiFi-passphrase to '`hostname`_ (needs to be at least 8 characters long)'"
 sed -i 's/PASSPHRASE/'`hostname`'_/g' /etc/hostapd/hostapd.conf
 
-ONFAILURE=`grep 'Restart=on-failure' | wc -l`
+ONFAILURE=`grep 'Restart=on-failure' /etc/systemd/system/multi-user.target.wants/dnsmasq.service | wc -l`
 if [ $ONFAILURE -eq 0 ]; then
 	echo "patching dnsmasq.service to restart on failure"
 	sed -i 's/\[Install\]/Restart=on-failure\nRestartSec=5\n[Install]/' /etc/systemd/system/multi-user.target.wants/dnsmasq.service
