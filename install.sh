@@ -55,7 +55,7 @@ sed -i 's/PASSPHRASE/'`hostname`'_/g' /etc/hostapd/hostapd.conf
 ONFAILURE=`grep 'Restart=on-failure' | wc -l`
 if [ $ONFAILURE -eq 0 ]; then
 	echo "patching dnsmasq.service to restart on failure"
-	sed -i 's/[Install]/Restart=on-failure\nRestartSec=5\n[Install]/' /etc/systemd/system/multi-user.target.wants/dnsmasq.service
+	sed -i 's/\[Install\]/Restart=on-failure\nRestartSec=5\n[Install]/' /etc/systemd/system/multi-user.target.wants/dnsmasq.service
 fi
 
 for s in hostapd dnsmasq dhcpcd; do service $s start; done
