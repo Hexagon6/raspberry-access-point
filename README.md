@@ -22,6 +22,7 @@ Basiert auf der Anleitung -> [Raspberry Pi as wifi access point](https://frillip
 Troubleshooting und Tipps:
 ----
 - dnsmasq "failure"-Nachrichten beim Aufstarten:
+
     dnsmasq started mehrfach neu beim booten.
       Dies ist unproblematisch und kann mit Setzen einer statischen IP für wlan0 behoben werden, jedoch setzt hostapd/dhcpcd diese IP beim starten, weshalb dnsmasq erst auf DNS anfragen hören kann, wenn diese IP-Adresse gesetzt ist. Siehe `/etc/network/interfaces`.
     Detail:
@@ -31,6 +32,7 @@ Troubleshooting und Tipps:
 	```
 
 - SSH absichern, wenn der Raspberry ans Internet gehängt wird:
+
     Um SSH abzusichern und Root Login nicht zu ermöglichen folgendes in der `/etc/ssh/sshd_config` setzen:
       Set PermitRootLogin to "no".
 	DSA ist unsicher und ECDSA hat nicht vertrauenswürdige crypto, daher empfielt es sich ECDSA- und DSA-host keys und Referenzen in der config zu entfernen
