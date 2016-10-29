@@ -39,7 +39,13 @@ Troubleshooting und Tipps:
 
 Phase 0
 ----
-Einloggen `pi`, pw: `raspberry`
+1. Flashen mit image on raspbian:
+
+jessie lite: [Download](https://www.raspberrypi.org/downloads/raspbian/), [Direktlink](https://downloads.raspberrypi.org/raspbian_lite_latest)
+
+2. IP-Adresse muss bekannt sein, ev. mit `avahi-browse` im Netzwerk suchen.
+
+3. Einloggen `pi`, pw: `raspberry`
 ```
 sudo apt update
 sudo apt install git-core
@@ -47,4 +53,3 @@ git clone https://github.com/hexagon6/raspberry-access-point
 cd raspberry-access-point
 sudo ./install
 ```
-Und 
